@@ -4,20 +4,21 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.*;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author : wangtao
  * @date : 2018/8/16 16:31  星期四
  */
 
-@RestController
+@Controller
 public class LoginController {
-    @GetMapping("/login")
+    @RequestMapping(value = "/login")
     public String login() {
-        return "need login";
+        return "login";
     }
 
     /**
@@ -55,7 +56,7 @@ public class LoginController {
 
 
     //登录
-    @GetMapping("/doLogin")
+    @PostMapping("/login")
     public String doLogin(String uid, String pwd) {
         //添加用户认证信息
         Subject subject = SecurityUtils.getSubject();
@@ -64,16 +65,18 @@ public class LoginController {
             //进行验证，这里可以捕获异常，然后返回对应信息
             subject.login(token);
         } catch (Exception e) {
-            return "login failed";
+            return "login";
         }
 
-        return "login success";
+        return "redirect:index";
     }
 
+    @RequiresUser
     @RequestMapping(value = "/index")
     public String index() {
         return "index";
     }
+
 
     //登出
     @RequestMapping(value = "/logout")
@@ -82,10 +85,10 @@ public class LoginController {
     }
 
     //错误页面展示
-    @GetMapping("/error")
-    public String error() {
-        return "error ok!";
-    }
+//    @GetMapping("/error")
+//    public String error() {
+//        return "error ok!";
+//    }
 
     @RequiresRoles("admin")
     @RequiresPermissions("create")

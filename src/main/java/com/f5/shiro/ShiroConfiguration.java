@@ -1,5 +1,6 @@
 package com.f5.shiro;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -31,6 +32,12 @@ public class ShiroConfiguration {
         return myShiroRealm;
     }
 
+
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
+    }
+
     /**
      * 权限管理，配置主要是Realm的管理认证
      */
@@ -55,6 +62,11 @@ public class ShiroConfiguration {
         //登出
         map.put("/logout", "logout");
         map.put("/doLogin", "anon");//对所有用户认证
+        map.put("/**/*.html", "anon");//对所有用户认证
+        map.put("/**/*.css", "anon");//对所有用户认证
+        map.put("/**/*.js", "anon");//对所有用户认证
+        map.put("/fonts/*", "anon");//对所有用户认证
+        map.put("/images/*", "anon");//对所有用户认证
         map.put("/**", "authc");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
