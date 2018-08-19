@@ -5,9 +5,11 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author : wangtao
@@ -73,7 +75,10 @@ public class LoginController {
 
     @RequiresUser
     @RequestMapping(value = "/index")
-    public String index() {
+    public String index(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        Object principal = subject.getPrincipal();
+        model.addAttribute("username", principal);
         return "index";
     }
 
@@ -93,6 +98,7 @@ public class LoginController {
     @RequiresRoles("admin")
     @RequiresPermissions("create")
     @RequestMapping(value = "/create")
+    @ResponseBody
     public String create() {
         return "Create success!";
     }
@@ -100,6 +106,7 @@ public class LoginController {
     @RequiresRoles(value = {"detail", "admin"}, logical = Logical.OR)
     @RequiresPermissions("create")
     @RequestMapping(value = "/create2")
+    @ResponseBody
     public String detail2() {
         return "uid";
     }
@@ -107,6 +114,7 @@ public class LoginController {
     @RequiresRoles(value = {"detail", "admin"}, logical = Logical.OR)
     @RequiresPermissions("detail")
     @RequestMapping(value = "/detail")
+    @ResponseBody
     public String detail() {
         return "uid";
     }
@@ -114,6 +122,7 @@ public class LoginController {
     @RequiresRoles(value = {"delete", "admin"}, logical = Logical.AND)
     @RequiresPermissions("delete")
     @RequestMapping(value = "/delete")
+    @ResponseBody
     public String delete() {
         return "uid";
     }
