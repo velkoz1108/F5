@@ -1,5 +1,7 @@
 package com.f5.web;
 
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -12,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,6 +21,7 @@ import java.util.Map;
  * @Team Home
  * @date : 2018-8-19 16:15 星期日
  */
+@Slf4j
 @Controller
 public class MyErrorController extends BasicErrorController {
     public MyErrorController(ServerProperties serverProperties) {
@@ -34,9 +36,11 @@ public class MyErrorController extends BasicErrorController {
      */
     @Override
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("wrong method", request.getMethod());
-        HttpStatus status = HttpStatus.NOT_FOUND;
+        Map<String, Object> body = getErrorAttributes(request,
+                isIncludeStackTrace(request, MediaType.ALL));
+        HttpStatus status = getStatus(request);
+        body.put("mydata", "wrong method");
+        log.info("body is :{}",JSON.toJSONString(body));
         return new ResponseEntity<>(body, status);
     }
 
@@ -54,6 +58,7 @@ public class MyErrorController extends BasicErrorController {
                 request, isIncludeStackTrace(request, MediaType.TEXT_HTML)));
         response.setStatus(status.value());
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
-        return (modelAndView == null ? new ModelAndView("/error/500.html", model) : modelAndView);
+        log.info("model map : {}", JSON.toJSONString(model));
+        return (modelAndView == null ? new ModelAndView("/error/error.html", model) : modelAndView);
     }
 }

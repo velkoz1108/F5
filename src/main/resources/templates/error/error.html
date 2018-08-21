@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -27,18 +27,18 @@
         <div class="col-md-12">
           <div class="col-middle">
             <div class="text-center">
-              <h1 class="error-number">500</h1>
-              <h2>Internal Server Error</h2>
-              <p>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing. <a href="#">Report this?</a>
+              <h1 class="error-number" th:text="${status}">500</h1>
+              <h2 th:text="${error}">Internal Server Error</h2>
+              <p th:text="${message}">We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing. <a href="#">Report this?</a>
               </p>
               <div class="mid_center">
                 <h3>Search</h3>
                 <form>
                   <div class="col-xs-12 form-group pull-right top_search">
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Search for...">
+                      <input type="text" class="form-control" placeholder="Search for..." th:value="${path}">
                       <span class="input-group-btn">
-                              <button class="btn btn-default" type="button">Go!</button>
+                              <button class="btn btn-default" type="button" >Go!</button>
                           </span>
                     </div>
                   </div>

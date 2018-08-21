@@ -5,6 +5,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 
 /**
  * @author : wangtao
@@ -44,7 +45,11 @@ public class MyShiroRealm extends AuthorizingRealm {
             return null;
         }
         //这里验证authenticationToken和simpleAuthenticationInfo的信息
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, "123456", getName());
+//        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, "123456", getName());
+
+        //以账号作为 盐值
+        ByteSource salt = ByteSource.Util.bytes(name);
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, "123456",salt, getName());
         return simpleAuthenticationInfo;
     }
 }

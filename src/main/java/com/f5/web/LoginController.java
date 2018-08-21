@@ -1,5 +1,6 @@
 package com.f5.web;
 
+import com.f5.dto.LoginDto;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.*;
@@ -59,10 +60,11 @@ public class LoginController {
 
     //登录
     @PostMapping("/login")
-    public String doLogin(String uid, String pwd) {
+    public String doLogin(LoginDto loginDto) {
         //添加用户认证信息
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(uid, pwd);
+        UsernamePasswordToken token = new UsernamePasswordToken(loginDto.getUsername(), loginDto.getPassword());
+        token.setRememberMe(loginDto.isRememberMe());
         try {
             //进行验证，这里可以捕获异常，然后返回对应信息
             subject.login(token);
