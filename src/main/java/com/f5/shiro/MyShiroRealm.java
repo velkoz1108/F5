@@ -42,14 +42,14 @@ public class MyShiroRealm extends AuthorizingRealm {
 
         String name = usernamePasswordToken.getUsername();
         if (name == null) {
-            return null;
+            throw new UnknownAccountException("用户不存在");
         }
         //这里验证authenticationToken和simpleAuthenticationInfo的信息
 //        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, "123456", getName());
 
         //以账号作为 盐值
         ByteSource salt = ByteSource.Util.bytes(name);
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, "123456",salt, getName());
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, "318599de7d56ad4c132774427f84911a", salt, getName());
         return simpleAuthenticationInfo;
     }
 }

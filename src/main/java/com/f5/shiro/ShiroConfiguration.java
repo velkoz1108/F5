@@ -1,6 +1,7 @@
 package com.f5.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -29,6 +30,8 @@ public class ShiroConfiguration {
     @Bean
     public MyShiroRealm myShiroRealm() {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
+        //注册 密码算法
+        myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return myShiroRealm;
     }
 
@@ -39,15 +42,15 @@ public class ShiroConfiguration {
     }
 
     /**
-     * 权限管理，配置主要是Realm的管理认证
+     * 权限管理，配置主要是Realm的管理认证  可以加入缓存 CacheManager cacheManager,
      */
     @Bean
-    public org.apache.shiro.mgt.SecurityManager securityManager(CacheManager cacheManager, SessionManager sessionManager) {
+    public org.apache.shiro.mgt.SecurityManager securityManager( SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setSessionManager(sessionManager);
         //注册自定义的管理认证
         securityManager.setRealm(myShiroRealm());
-        securityManager.setCacheManager(cacheManager);
+//        securityManager.setCacheManager(cacheManager);
         return securityManager;
     }
 
@@ -86,10 +89,10 @@ public class ShiroConfiguration {
         return advisor;
     }
 
-    @Bean
-    public CacheManager cacheManager() {
-        return new EhCacheManager();
-    }
+//    @Bean
+//    public CacheManager cacheManager() {
+//        return new EhCacheManager();
+//    }
 
 
     @Bean
@@ -97,6 +100,12 @@ public class ShiroConfiguration {
         return new EnterpriseCacheSessionDAO();
     }
 
+    /**
+     * session manager 可以整合redis实现session共享
+     *
+     * @param sessionDAO
+     * @return
+     */
     @Bean
     public SessionManager sessionManager(SessionDAO sessionDAO) {
         DefaultWebSessionManager manager = new DefaultWebSessionManager();
@@ -104,5 +113,18 @@ public class ShiroConfiguration {
         manager.setGlobalSessionTimeout(3600000);
         manager.setSessionValidationInterval(3600000);
         return manager;
+    }
+
+    /**
+     * 密码加密算法
+     *
+     * @return
+     */
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        credentialsMatcher.setHashAlgorithmName("MD5");
+        credentialsMatcher.setHashIterations(1024);
+        return credentialsMatcher;
     }
 }

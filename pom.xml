@@ -60,9 +60,9 @@
         </dependency>
         <!-- 由于前面的包里面不包含这个，所以要单独引入， 如果不引入， shiro的权限注解不起作用 -->
         <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-aspects</artifactId>-->
-            <!--<version>5.0.7.RELEASE</version>-->
+        <!--<groupId>org.springframework</groupId>-->
+        <!--<artifactId>spring-aspects</artifactId>-->
+        <!--<version>5.0.7.RELEASE</version>-->
         <!--</dependency>-->
 
         <!--不用spring-aspects，使用aop的包也可以-->
@@ -84,6 +84,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.49</version>
         </dependency>
+
+        <!-- Spring Boot Redis 依赖 -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
