@@ -40,7 +40,7 @@ public class MyErrorController extends BasicErrorController {
                 isIncludeStackTrace(request, MediaType.ALL));
         HttpStatus status = getStatus(request);
         body.put("mydata", "wrong method");
-        log.info("body is :{}",JSON.toJSONString(body));
+        log.debug("body is :{}",JSON.toJSONString(body));
         return new ResponseEntity<>(body, status);
     }
 
@@ -58,7 +58,7 @@ public class MyErrorController extends BasicErrorController {
                 request, isIncludeStackTrace(request, MediaType.TEXT_HTML)));
         response.setStatus(status.value());
         ModelAndView modelAndView = resolveErrorView(request, response, status, model);
-        log.info("model map : {}", JSON.toJSONString(model));
+        log.debug("model map : {}", JSON.toJSONString(model));
         return (modelAndView == null ? new ModelAndView("/error/error.html", model) : modelAndView);
     }
 }

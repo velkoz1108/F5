@@ -2,8 +2,6 @@ package com.f5.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.cache.CacheManager;
-import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
@@ -45,7 +43,7 @@ public class ShiroConfiguration {
      * 权限管理，配置主要是Realm的管理认证  可以加入缓存 CacheManager cacheManager,
      */
     @Bean
-    public org.apache.shiro.mgt.SecurityManager securityManager( SessionManager sessionManager) {
+    public org.apache.shiro.mgt.SecurityManager securityManager(SessionManager sessionManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setSessionManager(sessionManager);
         //注册自定义的管理认证
@@ -64,7 +62,6 @@ public class ShiroConfiguration {
         Map<String, String> map = new HashMap<String, String>();
         //登出
         map.put("/logout", "logout");
-        map.put("/doLogin", "anon");//对所有用户认证
         map.put("/**/*.html", "anon");//对所有用户认证
         map.put("/**/*.css", "anon");//对所有用户认证
         map.put("/**/*.js", "anon");//对所有用户认证
@@ -74,7 +71,7 @@ public class ShiroConfiguration {
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");
         //首页
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/");
         //错误页面，认证不通过跳转
         shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
@@ -95,9 +92,18 @@ public class ShiroConfiguration {
 //    }
 
 
+    //    @Bean
+//    public SessionDAO sessionDAO() {
+//        return new EnterpriseCacheSessionDAO();
+//    }
+
+    /**
+     * 自定义session的crud
+     * @return
+     */
     @Bean
     public SessionDAO sessionDAO() {
-        return new EnterpriseCacheSessionDAO();
+        return new MySessionDAO();
     }
 
     /**

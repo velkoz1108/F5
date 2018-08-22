@@ -1,9 +1,12 @@
 package com.f5.web;
 
+import com.alibaba.fastjson.JSON;
 import com.f5.dto.LoginDto;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.*;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author : wangtao
  * @date : 2018/8/16 16:31  星期四
  */
-
+@Slf4j
 @Controller
 public class LoginController {
     @RequestMapping(value = "/login")
@@ -71,7 +74,18 @@ public class LoginController {
         } catch (Exception e) {
             return "login";
         }
+        if (subject.isAuthenticated()) {
+            Session session = subject.getSession(false);
+            log.debug("[login] session is :{}", JSON.toJSONString(session));
+            session.setAttribute("username", loginDto.getUsername());
+        }
 
+        return "redirect:index";
+    }
+
+    @RequiresUser
+    @RequestMapping(value = "/")
+    public String home(Model model) {
         return "redirect:index";
     }
 
