@@ -78,6 +78,8 @@ public class LoginController {
             Session session = subject.getSession(false);
             log.debug("[login] session is :{}", JSON.toJSONString(session));
             session.setAttribute("username", loginDto.getUsername());
+        }else {
+            log.debug("[login] subject isAuthenticated :{}",subject.isAuthenticated());
         }
 
         return "redirect:index";
