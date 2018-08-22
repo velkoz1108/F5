@@ -100,6 +100,32 @@ public class LoginController {
         return "index";
     }
 
+    @RequiresUser
+    @RequestMapping(value = "/form")
+    public String form(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        Object principal = subject.getPrincipal();
+        model.addAttribute("username", principal);
+        return "form";
+    }
+
+    @RequiresUser
+    @RequestMapping(value = "/tables")
+    public String tables(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        Object principal = subject.getPrincipal();
+        model.addAttribute("username", principal);
+        return "tables";
+    }
+    @RequiresUser
+    @RequestMapping(value = "/elements")
+    public String elements(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        Object principal = subject.getPrincipal();
+        model.addAttribute("username", principal);
+        return "elements";
+    }
+
 
     //登出
     @RequestMapping(value = "/logout")
