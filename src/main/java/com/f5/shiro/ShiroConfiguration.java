@@ -67,6 +67,7 @@ public class ShiroConfiguration {
         map.put("/**/*.js", "anon");//对所有用户认证
         map.put("/fonts/*", "anon");//对所有用户认证
         map.put("/images/*", "anon");//对所有用户认证
+        map.put("/**/*.ico", "anon");//对所有用户认证
         map.put("/**", "authc");
         //登录
         shiroFilterFactoryBean.setLoginUrl("/login");

@@ -1,11 +1,15 @@
 package com.f5.shiro;
 
+import com.f5.model.single.Admin;
+import com.f5.service.AdminService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @author : wangtao
@@ -33,6 +37,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         return simpleAuthorizationInfo;
     }
 
+    @Autowired
+    private AdminService adminService;
+
     /**
      * 用户认证
      */
@@ -41,7 +48,8 @@ public class MyShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 
         String name = usernamePasswordToken.getUsername();
-        if (name == null) {
+        Admin admin = adminService.queryAdminByUsername(name);
+        if (ObjectUtils.isEmpty(admin)) {
             throw new UnknownAccountException("用户不存在");
         }
         //这里验证authenticationToken和simpleAuthenticationInfo的信息
@@ -49,7 +57,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
         //以账号作为 盐值
         ByteSource salt = ByteSource.Util.bytes(name);
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, "318599de7d56ad4c132774427f84911a", salt, getName());
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(admin.getUsername(), admin.getPassword(), salt, getName());
         return simpleAuthenticationInfo;
     }
 }

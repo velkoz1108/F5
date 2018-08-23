@@ -22,7 +22,7 @@ public class AppTests {
 
     @Test
     public void testMd5() {
-        String username = "wangtao";
+        String username = "admin";
         String password = "123456";
         String hashAlgorithmName = "MD5";//加密方式
 
