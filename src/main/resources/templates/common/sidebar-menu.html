@@ -16,7 +16,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
                 <div class="profile_pic">
-                    <img src="/images/img.jpg" alt="..." class="img-circle profile_img">
+                    <img th:src="@{/images/img.jpg}" alt="..." class="img-circle profile_img">
                 </div>
                 <div class="profile_info">
                     <span th:text="#{hello}">Welcome,</span>
@@ -38,6 +38,7 @@
                                 <li><a href="/form">from</a></li>
                                 <li><a href="/index?lang=zh_CN">中文</a></li>
                                 <li><a href="/index?lang=en_US">英文</a></li>
+                                <li><a href="/user/list">用户列表</a></li>
                                 <li shiro:hasRole="admin"><a href="index3.html">admin管理员</a></li>
                                 <li shiro:hasRole="detail"><a href="index3.html">detail权限</a></li>
                             </ul>

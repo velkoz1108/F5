@@ -1,7 +1,8 @@
 package com.f5.service;
 
 import com.f5.model.single.Admin;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @author : wangtao
@@ -11,4 +12,5 @@ import org.springframework.stereotype.Service;
 
 public interface AdminService {
     Admin queryAdminByUsername(String username);
+    Page<Admin> findAll(Pageable pageable);
 }
