@@ -16,12 +16,12 @@ public class AdminRoles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //    ManyToOne关联到Admin
-    @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Admin admin;
+//    //    ManyToOne关联到Admin
+//    @ManyToOne
+//    @JoinColumn(name = "admin_id")
+//    private Admin admin;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private SystemRoles systemRoles;
 }

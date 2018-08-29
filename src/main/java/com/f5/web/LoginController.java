@@ -118,6 +118,15 @@ public class LoginController {
         return "tables";
     }
     @RequiresUser
+    @RequestMapping(value = "/tables_dynamic")
+    public String tablesDynamic(Model model) {
+        Subject subject = SecurityUtils.getSubject();
+        Object principal = subject.getPrincipal();
+        model.addAttribute("username", principal);
+        return "tables_dynamic";
+    }
+
+    @RequiresUser
     @RequestMapping(value = "/elements")
     public String elements(Model model) {
         Subject subject = SecurityUtils.getSubject();

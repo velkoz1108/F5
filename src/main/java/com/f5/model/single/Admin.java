@@ -36,11 +36,25 @@ public class Admin {
 //    Set<SystemRoles> rolesList;
 
     //--->　　OneToMany关联到了AdminRole这个类，由AdminRole这个类来维护多对一的关系，mappedBy="admin"
-    @OneToMany(mappedBy = "admin")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    Set<AdminRoles> adminRoles;
 
-    @OneToMany(mappedBy = "admin")
-    @LazyCollection(LazyCollectionOption.FALSE)
+//    cascade属性的可能值有
+//all: 所有情况下均进行关联操作，即save-update和delete。
+//none: 所有情况下均不进行关联操作。这是默认值。
+//save-update: 在执行save/update/saveOrUpdate时进行关联操作。
+//delete: 在执行delete 时进行关联操作。
+//all-delete-orphan: 当一个节点在对象图中成为孤儿节点时，删除该节点。
+//比如在一个一对多的关系中，Student包含多个book，当在对象关系中删除一个book时，
+//此book即成为孤儿节点。
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "admin_id")
+//    Set<AdminRoles> adminRoles;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "admin_id")
     Set<AdminPermission> adminPermissions;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "admin_id")
+    Set<AdminRoles> adminRoles;
 }

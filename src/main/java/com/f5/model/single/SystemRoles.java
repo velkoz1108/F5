@@ -25,8 +25,4 @@ public class SystemRoles {
 
     private Integer orderNo;
 
-    //OneToMany指定了由AdminRole这个类来维护多对一的关联关系，mappedBy="role"
-    @OneToMany(mappedBy="systemRoles")
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    private Set<AdminRoles> adminRoles;
 }

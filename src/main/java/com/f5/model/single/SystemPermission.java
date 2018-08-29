@@ -27,8 +27,8 @@ public class SystemPermission {
 
     private String remark;
 
-    //OneToMany指定了由AdminRole这个类来维护多对一的关联关系，mappedBy="role"
-    @OneToMany(mappedBy="systemPermission")
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    private Set<AdminPermission> adminPermissions;
+//
+//    @OneToOne
+//    @JoinColumn(name = "id")
+//    private AdminPermission adminPermission;
 }
