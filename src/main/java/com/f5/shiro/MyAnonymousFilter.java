@@ -17,6 +17,7 @@ public class MyAnonymousFilter extends AnonymousFilter {
     @Override
     protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) {
         log.debug("[MyAnonymousFilter] mappedValue is :{}", JSON.toJSONString(mappedValue));
+        // 返回true 允许匿名用户访问
         return true;
     }
 

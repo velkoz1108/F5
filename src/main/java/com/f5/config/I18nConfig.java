@@ -1,12 +1,12 @@
 package com.f5.config;
 
+import com.f5.handler.MyHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
@@ -18,7 +18,7 @@ import java.util.Locale;
  */
 
 @Configuration
-public class I18nConfig extends WebMvcConfigurationSupport {
+public class I18nConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver resolver = new SessionLocaleResolver();
@@ -35,19 +35,16 @@ public class I18nConfig extends WebMvcConfigurationSupport {
         return lci;
     }
 
+    @Bean
+    public MyHandler getSystemHander() {
+        return new MyHandler();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //注册拦截器
         registry.addInterceptor(localeChangeInterceptor());
-        super.addInterceptors(registry);
-    }
+        registry.addInterceptor(getSystemHander());
 
-    @Override
-    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/resources/")
-                .addResourceLocations("classpath:/static/")
-                .addResourceLocations("classpath:/public/");
-        super.addResourceHandlers(registry);
     }
 }
