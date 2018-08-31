@@ -24,8 +24,14 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public  Page<Admin> findAll(Pageable pageable) {
+    public Page<Admin> findAll(Pageable pageable) {
         Page<Admin> all = adminRepository.findAll(pageable);
         return all;
+    }
+
+    @Override
+    public int updateAdmin(Admin admin) {
+        adminRepository.saveAndFlush(admin);
+        return 1;
     }
 }

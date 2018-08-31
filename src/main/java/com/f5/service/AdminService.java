@@ -13,4 +13,5 @@ import org.springframework.data.domain.Pageable;
 public interface AdminService {
     Admin queryAdminByUsername(String username);
     Page<Admin> findAll(Pageable pageable);
+    int updateAdmin(Admin admin);
 }

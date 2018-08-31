@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -22,6 +23,8 @@ public class Admin {
     private String username;
     private String password;
     private Boolean rememberMe;
+    @Column(name = "last_access_time")
+    private Date lastAccessTime;
 //
 //    @ManyToMany
 //    @JoinTable(name = "admin_permission",
