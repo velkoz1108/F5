@@ -4,23 +4,19 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @author : wangtao
- * @date : 2018/8/23 17:45  星期四
+ * @date : 2018/9/3 15:49  星期一
  */
 
-@Data
 @Entity
-public class AdminRoles implements Serializable {
+@Data
+public class MenuRoles implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-//    //    ManyToOne关联到Admin
-//    @ManyToOne
-//    @JoinColumn(name = "admin_id")
-//    private Admin admin;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")

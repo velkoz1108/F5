@@ -1,9 +1,9 @@
 package com.f5.model.single;
 
 import lombok.Data;
-import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author : wangtao
@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class AdminPermission {
+public class AdminPermission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

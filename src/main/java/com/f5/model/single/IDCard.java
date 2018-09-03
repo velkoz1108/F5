@@ -1,6 +1,7 @@
 package com.f5.model.single;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author : wangtao
@@ -9,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "t_id_card")
-public class IDCard {
+public class IDCard implements Serializable {
     private int id;
     private String no;
     private Person person;

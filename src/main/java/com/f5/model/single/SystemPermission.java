@@ -1,11 +1,12 @@
 package com.f5.model.single;
 
 import lombok.Data;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * @author : wangtao
@@ -16,7 +17,7 @@ import java.util.Set;
 
 @Data
 @Entity
-public class SystemPermission {
+public class SystemPermission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
