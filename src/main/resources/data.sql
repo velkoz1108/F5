@@ -6,19 +6,19 @@ insert into admin(id,username,password,rememberMe) values (null,'wangtao','31859
 
 
 
-INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (1, NULL, 'select');
-INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (2, NULL, 'update');
-INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (3, NULL, 'insert');
-INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (4, NULL, 'delete');
-INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (5, NULL, 'all');
+INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (1, NULL, 'admin');
+INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (2, NULL, 'super');
+INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (3, NULL, 'user');
+INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (4, NULL, 'db');
+INSERT INTO `systemroles`(`id`, `orderNo`, `roleName`) VALUES (5, NULL, 'guest');
 
 
 
-INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (1, NULL, 'admin', NULL);
-INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (2, NULL, 'super', NULL);
-INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (3, NULL, 'user', NULL);
-INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (4, NULL, 'db', NULL);
-INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (5, NULL, 'guest', NULL);
+INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (1, NULL, 'select', NULL);
+INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (2, NULL, 'update', NULL);
+INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (3, NULL, 'insert', NULL);
+INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (4, NULL, 'delete', NULL);
+INSERT INTO `systempermission`(`id`, `orderNo`, `permissionName`, `remark`) VALUES (5, NULL, 'all', NULL);
 
 
 INSERT INTO `adminpermission`(`id`, `admin_id`, `permission_id`) VALUES (1, 1, 1);

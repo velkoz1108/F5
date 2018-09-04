@@ -1,7 +1,9 @@
 package com.f5.service.impl;
 
 import com.f5.model.single.Admin;
+import com.f5.model.single.SystemRoles;
 import com.f5.repository.single.AdminRepository;
+import com.f5.repository.single.RoleRepository;
 import com.f5.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Override
     public Admin queryAdminByUsername(String username) {
         return adminRepository.findAdminByUsername(username);
@@ -33,5 +38,10 @@ public class AdminServiceImpl implements AdminService {
     public int updateAdmin(Admin admin) {
         adminRepository.saveAndFlush(admin);
         return 1;
+    }
+
+    @Override
+    public Page<SystemRoles> queryAllSystemRoles(Pageable pageable) {
+        return roleRepository.findAll(pageable);
     }
 }

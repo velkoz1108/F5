@@ -7,6 +7,8 @@ import com.f5.service.ImageService;
 import com.f5.service.MenuService;
 import com.f5.utils.MenuTreeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.CollectionUtils;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +51,17 @@ public class MyHandler implements HandlerInterceptor {
 
         HttpSession session = WebUtils.toHttp(request).getSession(false);
         if (!ObjectUtils.isEmpty(session)) {
-            List<Menu> allMenu = menuService.findAllMenu();
-            List<Menu> menus = MenuTreeUtil.buildTree(allMenu);
-            log.info(JSON.toJSONString(menus));
-            session.setAttribute("menuList", menus);
+            if (ObjectUtils.isEmpty(session.getAttribute("menuList"))) {
+                List<Menu> allMenu = menuService.findAllMenu();
+                List<Menu> menus = MenuTreeUtil.buildTree(allMenu);
+                log.info(JSON.toJSONString(menus));
+                session.setAttribute("menuList", menus);
+            }
+            if (ObjectUtils.isEmpty(session.getAttribute("username"))) {
+                Subject subject = SecurityUtils.getSubject();
+                Object principal = subject.getPrincipal();
+                session.setAttribute("username", principal);
+            }
         } else {
             log.debug("session is null");
         }

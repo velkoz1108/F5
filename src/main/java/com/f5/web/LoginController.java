@@ -75,13 +75,13 @@ public class LoginController {
         } catch (Exception e) {
             return "login";
         }
-        if (subject.isAuthenticated()) {
-            Session session = subject.getSession(false);
-            log.debug("[login] session is :{}", JSON.toJSONString(session));
-            session.setAttribute("username", loginDto.getUsername());
-        }else {
-            log.debug("[login] subject isAuthenticated :{}",subject.isAuthenticated());
-        }
+//        if (subject.isAuthenticated()) {
+//            Session session = subject.getSession(false);
+//            log.debug("[login] session is :{}", JSON.toJSONString(session));
+//            session.setAttribute("username", loginDto.getUsername());
+//        }else {
+//            log.debug("[login] subject isAuthenticated :{}",subject.isAuthenticated());
+//        }
 
         return "redirect:index";
     }
@@ -95,35 +95,23 @@ public class LoginController {
     @RequiresUser
     @RequestMapping(value = "/index")
     public String index(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object principal = subject.getPrincipal();
-        model.addAttribute("username", principal);
         return "index";
     }
 
     @RequiresUser
     @RequestMapping(value = "/form")
     public String form(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object principal = subject.getPrincipal();
-        model.addAttribute("username", principal);
         return "form";
     }
 
     @RequiresUser
     @RequestMapping(value = "/tables")
     public String tables(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object principal = subject.getPrincipal();
-        model.addAttribute("username", principal);
         return "tables";
     }
     @RequiresUser
     @RequestMapping(value = "/tables_dynamic")
     public String tablesDynamic(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object principal = subject.getPrincipal();
-        model.addAttribute("username", principal);
         return "tables_dynamic";
     }
 
@@ -131,9 +119,6 @@ public class LoginController {
     @RequiresUser
     @RequestMapping(value = "/elements")
     public String elements(Model model) {
-        Subject subject = SecurityUtils.getSubject();
-        Object principal = subject.getPrincipal();
-        model.addAttribute("username", principal);
         return "elements";
     }
 
