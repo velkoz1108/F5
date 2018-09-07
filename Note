@@ -1,0 +1,41 @@
+spring-security-core-5.0.4.RELEASE.jar中：
+    国际化资源 org\springframework\security\
+                                    messages.properties
+                                    messages_de.properties
+                                    messages_en.properties
+                                    messages_fr.properties
+                                    messages_it.properties
+                                    messages_lt.properties
+                                    messages_pl.properties
+                                    messages_ru.properties
+                                    messages_cs_CZ.properties
+                                    messages_es_ES.properties
+                                    messages_ko_KR.properties
+                                    messages_pt_BR.properties
+                                    messages_pt_PT.properties
+                                    messages_uk_UA.properties
+                                    messages_zh_CN.properties
+
+    默认数据库结构 org\springframework\security\core\userdetails\jdbc\users.ddl
+            create table users(username varchar_ignorecase(50) not null primary key,password varchar_ignorecase(500) not null,enabled boolean not null);
+            create table authorities (username varchar_ignorecase(50) not null,authority varchar_ignorecase(50) not null,constraint fk_authorities_users foreign key(username) references users(username));
+            create unique index ix_auth_username on authorities (username,authority);
+
+
+            INSERT INTO users ( username, PASSWORD, enabled )
+            VALUES
+            	( 'admin', '21232f297a57a5a743894a0e4a801fc3', 1 );
+            INSERT INTO users ( username, PASSWORD, enabled )
+            VALUES
+            	( 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 1 );
+            INSERT INTO authorities
+            VALUES
+            	( 'admin', 'ROLE_ADMIN' );
+            INSERT INTO authorities
+            VALUES
+            	( 'user', 'ROLE_USER' );
+
+
+
+    默认登录页面 org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter
+            generateLoginPageHtml()
