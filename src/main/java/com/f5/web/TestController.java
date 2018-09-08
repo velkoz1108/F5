@@ -15,20 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @RequestMapping("/test")
     public String test() {
-        return "this is test controller!";
+        return "this is test controller 1!";
     }
 
     @Secured("ROLE_ADMIN")
     @RequestMapping("/test2")
     public String test2() {
-        return "this is test controller!";
+        return "this is test controller 2!";
     }
 
     @Secured("ROLE_USER")
     @RequestMapping("/test3")
     public String test3() {
-        return "this is test controller!";
+        return "this is test controller 3!";
     }
 
-
+    @Secured("ROLE_DB")
+    @RequestMapping("/test4")
+    public String test4() {
+        return "this is test controller 4!";
+    }
 }
